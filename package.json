@@ -1,20 +1,17 @@
 {
-  "name": "node",
-  "version": "1.0.0",
-  "description": "creative lab",
-  "main": "index.js",
+  "name": "NodeCreativeAssignment",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/inhyup/NodeCreativeAssignment.git"
-  },
-  "author": "seth, inhyup",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/inhyup/NodeCreativeAssignment/issues"
-  },
-  "homepage": "https://github.com/inhyup/NodeCreativeAssignment#readme"
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.4.1",
+    "express": "~4.13.4",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
+  }
 }
