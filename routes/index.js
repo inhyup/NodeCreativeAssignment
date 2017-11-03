@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile('weather.html', { root:  'public' });
+  res.sendFile('client.html', { root:  'public' });
 });
 
 var count=1;
