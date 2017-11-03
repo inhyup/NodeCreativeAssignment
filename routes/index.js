@@ -1,12 +1,8 @@
 var express = require('express');
 var router = express.Router();
-http = require('http');
 var app = express();
-var server = http.createServer(app);
-
-//var http = require('http').Server(app);
-
-var io = require('socket.io').listen(server);
+var http = require('http').Server(app);
+var io = require('socket.io').listen(app);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
