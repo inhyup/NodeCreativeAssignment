@@ -1,8 +1,111 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-image: url("mountain.jpg");
+    background-size: cover;
+    z-index: -1000;
 }
 
-a {
-  color: #00B7FF;
+#weatherForm {
+    display: flex;
+    position: relative;
+    top: 30;
+    width: 95%;
+    margin: 10;
+    background-color: #002255;
+    border-radius: 15px;
+    padding: 20px;
+    border: 5px outset #c5af7d;
+}
+
+#owlbotForm {
+    position: relative;
+    top: 5%;
+    width: 95%;
+    margin: 10;
+    border-radius: 15px;
+    background-color: #CBDCEE;
+    padding: 20px;
+    border: 5px outset #F2F8D7;
+}
+
+#title {
+    text-align: center;
+    margin: 0 20;
+}
+
+#find {
+    text-align: left;
+    color: white;
+}
+
+#cityField {
+    border: 5px outset #c5af7d;
+    border-radius: 15px;
+    margin: 10;
+}
+
+#weatherButton {
+    background-color: #c5af7d;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+    color: black;
+    border-radius: 15px;
+    padding: 10px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#txtHint {
+    color: yellow;
+}
+
+#displayCity {
+    border: 5px outset #c5af7d;
+    border-radius: 15px;
+    margin: 0 10;
+}
+
+#weather {
+    color: greenyellow;
+}
+
+#stackTitle {
+    color: black;
+}
+
+#searchWord {
+    border: 5px outset #A5DB58;
+    border-radius: 15px;
+    margin: 10;
+}
+
+#searchButton {
+    background-color:A5DB58;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+    color: black;
+    border-radius: 15px;
+    padding: 10px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#searchResults {
+    color: darkslategrey;
+}
+
+h1 {
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+h3 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+div {
+    padding : 10;
 }
