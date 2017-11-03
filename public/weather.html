@@ -1,159 +1,42 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Weather&Stack</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-
-        <script
-            src="http://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous">
-        </script>
-
-        <script>
-            $(document).ready(function() 
-            {
-                $( "#cityField" ).keyup(function() 
-                {
-                    var url = "/getcity?q="+$("#cityField").val();
-                    $.getJSON(url,function(data) 
-                    {
-                        var everything;
-                        everything = "<ul>";
-                        $.each(data, function(i,item) 
-                        {
-                            everything += "<li> "+data[i].city;
-                        });
-                        everything += "</ul>";
-                        $("#txtHint").html(everything);
-                    })
-                    .done(function() 
-                    { 
-                        console.log('getJSON request succeeded!'); 
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) { 
-                        console.log('getJSON request failed! ' + textStatus); 
-                        console.log("incoming "+jqXHR.responseText);
-                    })
-                    .always(function() 
-                    { 
-                        console.log('getJSON request ended!');
-                    });
-                });
-
-                
-                
-                $("#weatherButton").click(function(e)
-                {
-                    var value = $("#cityField").val();
-                    console.log(value);
-                    e.preventDefault();
-                    $("#displayCity").text(value);
-                    var myurl= "https://api.wunderground.com/api/ada75bcd955a345d/geolookup/conditions/q/UT/";
-                    myurl += value;
-                    myurl += ".json";
-                    console.log(myurl);
-                    $.ajax({
-                        url : myurl,
-                        dataType : "json",
-                        success : function(parsed_json) {
-                            var location = parsed_json['location']['city'];
-                            var temp_string = parsed_json['current_observation']['temperature_string'];
-                            var current_weather = parsed_json['current_observation']['weather'];
-                            everything = "<ul>";
-                            everything += "<li>Location: "+location;
-                            everything += "<li>Temperature: "+temp_string;
-                            everything += "<li>Weather: "+current_weather;
-                            everything += "</ul>";
-                            $("#weather").html(everything);
-                        }
-                    });
-                });
-
-                
-                            
-
-                $("#searchButton").click(function(e){
-                    var wordValue = $("searchWord").val();
-                    console.log(wordValue);
-                    e.preventDefault();
-                    $("#searchResults").text("");
-                    var thisurl = "../word?w="+$("#searchWord").val();
-                        $.getJSON(thisurl, function(data){
-                            console.log(data);
-                            console.log(thisurl);
-                            var everything = "";
-                            $.each(data, function(i,eachItem) {
-                                  var type =data[i].type;
-                                  var definition = data[i].defenition;
-                                  var example = data[i].example;
-                                
-                                  everything += "Type: " + type + "<br>"
-                                                + "Definition: " + definition + "<br>"
-                                                + "Example: " + example + "<br>" + "<br>";
-                                    });
-                            $("#searchResults").append(everything);	
-                            });
-                        });
-
-
-
-
-
-               
-
-            });
-        </script>
-    </head>
-    
-    <body>
-        <div id="title">
-            <h1>Weather Forcast & Stack Overflow</h1>
-        </div>
-        
-        <form id="weatherForm">
-            <div id="title">
-                    <h3>Utah Weather</h3>
-            </div>
-            
-            <div id="find">
-                    Enter A Utah City:<input type="text" id="cityField" value=""><br>
-                    <p></p>
-                    Suggestion: <span id="txtHint">Empty</span>
-                    <p></p>
-                    <input id="weatherButton" type="submit" value="Submit">
-            </div>
-            
-            <div id="find">
-                    City:<textarea id="displayCity">No City</textarea>
-                    <p>Current Weather</p>
-                    <div id="weather">No weather</div>
-            </div>
-                    
-
-            
-        </form>
-        
-
-        <form id="owlbotForm">
-            <div id="title">
-                <h3>Owlbot</h3>
-            </div>
-
-            <div id="find">
-                Enter A Word:<input type="text" id="searchWord" value=""><br>
-                <p></p>
-                <span id="searchResults">Empty</span>
-                <p></p>
-                <input id="searchButton" type="submit" value="Submit">
-            </div>
-
-
-        </form>
-
-    
-
-
-        
-
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>chat</title>
+    <style>
+      .chat_log{ width: 95%; height: 200px; }
+      .name{ width: 10%; }
+      .message{ width: 70%; }
+      .chat{ width: 10%; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <textarea id="chatLog" class="chat_log" readonly></textarea>
+    </div>
+    <form id="chat">
+      <input id="name" class="name" type="text" readonly>
+      <input id="message" class="message" type="text">
+      <input type="submit" class="chat" value="chat"/>
+    </form>
+    <div id="box" class="box">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('#chat').on('submit', function(e){
+        socket.emit('send message', $('#name').val(), $('#message').val());
+        $('#message').val("");
+        $("#message").focus();
+        e.preventDefault();
+      });
+      socket.on('receive message', function(msg){
+        $('#chatLog').append(msg+"\n");
+        $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+      });
+      socket.on('change name', function(name){
+        $('#name').val(name);
+      });
+    </script>
+  </body>
 </html>
